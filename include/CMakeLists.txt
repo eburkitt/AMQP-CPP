@@ -46,8 +46,6 @@ stringfield.h
 table.h
 tcpchannel.h
 tcpconnection.h
-tcpdefines.h
 tcphandler.h
 watchable.h
-
 )

@@ -83,6 +83,7 @@ reducedbuffer.h
 returnedmessage.h
 table.cpp
 tcpclosed.h
+tcpdefines.h
 tcpconnected.h
 tcpconnection.cpp
 tcpinbuffer.h
@@ -102,3 +103,4 @@ watchable.cpp
 if (NOT BUILD_PURE)
   add_sources(tcpconnection.cpp)
 endif()
+
