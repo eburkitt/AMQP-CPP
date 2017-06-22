@@ -11,7 +11,7 @@
 # ifdef SO_NOSIGPIPE
 #  define AMQP_CPP_USE_SO_NOSIGPIPE
 # else
-#  error "Cannot block SIGPIPE!"
+#   error "Cannot block SIGPIPE!"
 # endif
 #endif
 

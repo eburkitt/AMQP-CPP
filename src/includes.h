@@ -22,10 +22,16 @@
 #include <vector>
 #include <queue>
 #include <sys/types.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <unistd.h>
-#include <netinet/tcp.h>
+#ifndef AMQP_CPP_NO_TCP_CONN
+# ifndef _MSC_VER
+#  include <sys/socket.h>
+#  include <netdb.h>
+#  include <unistd.h>
+#  include <netinet/tcp.h>
+# else
+#  include <winsock2.h>
+# endif // !_MSC_VER
+#endif // !AMQP_CPP_NO_TCP_CONN
 #include <functional>
 #include <stdexcept>
 
@@ -41,7 +47,9 @@
 #include "../include/copiedbuffer.h"
 #include "../include/watchable.h"
 #include "../include/monitor.h"
-#include "../include/tcpdefines.h"
+#ifndef AMQP_CPP_NO_TCP_CONN
+# include "../include/tcpdefines.h"
+#endif
 
 // amqp types
 #include "../include/field.h"
@@ -75,8 +83,10 @@
 #include "../include/connectionhandler.h"
 #include "../include/connectionimpl.h"
 #include "../include/connection.h"
-#include "../include/tcphandler.h"
-#include "../include/tcpconnection.h"
+#ifndef AMQP_CPP_NO_TCP_CONN
+# include "../include/tcphandler.h"
+# include "../include/tcpconnection.h"
+#endif
 
 // classes that are very commonly used
 #include "../include/exception.h"
@@ -91,6 +101,6 @@
 #include "queueframe.h"
 #include "basicframe.h"
 #include "transactionframe.h"
-#include "addressinfo.h"
-
-
+#ifndef AMQP_CPP_NO_TCP_CONN
+# include "addressinfo.h"
+#endif

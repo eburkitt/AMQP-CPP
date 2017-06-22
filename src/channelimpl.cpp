@@ -478,7 +478,7 @@ bool ChannelImpl::publish(const std::string &exchange, const std::string &routin
     while (bytesleft > 0)
     {
         // size of this chunk
-        uint64_t chunksize = std::min(static_cast<uint64_t>(maxpayload), bytesleft);
+        auto chunksize = static_cast<uint32_t>(std::min(static_cast<uint64_t>(maxpayload), bytesleft));
 
         // send out a body frame
         if (!send(BodyFrame(_id, data + bytessent, chunksize))) return false;
