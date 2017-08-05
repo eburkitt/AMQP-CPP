@@ -42,6 +42,11 @@ private:
     T _value;
 
 public:
+	/**
+	 * type of contained numeric value
+	*/
+	using number_t = T;
+
     /**
      *  Default constructor, assign 0
      */
@@ -59,7 +64,7 @@ public:
      *  Parse based on incoming buffer
      *  @param  frame
      */
-    NumericField(ReceivedFrame &frame)
+    explicit NumericField(ReceivedFrame &frame)
     {
 // The Microsoft Visual Studio compiler thinks that there is an issue
 // with the following code, so we temporarily disable a specific warning

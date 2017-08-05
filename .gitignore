@@ -13,3 +13,9 @@
 *.la
 *.a
 *.a.*
+
+# Visual Studio generated artifacts
+.vs/
+vs20xx/
+x64/
+*.lib

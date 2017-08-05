@@ -16,7 +16,12 @@
  *  Dependencies
  */
 #include <fcntl.h>
+#if defined _WINDOWS
+# include <io.h>
+# include <fcntl.h>
+#else
 #include <unistd.h>
+#endif
 
 /**
  *  Set up namespace
