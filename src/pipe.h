@@ -16,7 +16,11 @@
  *  Dependencies
  */
 #include <fcntl.h>
+#if _MSC_VER
+#include <io.h>
+#else
 #include <unistd.h>
+#endif
 
 /**
  *  Set up namespace
@@ -44,6 +48,8 @@ public:
         // construct the pipe
 #ifdef _GNU_SOURCE
         if (pipe2(_fds, O_CLOEXEC) == 0) return;
+#elif _MSC_VER
+		if (_pipe(_fds, 256, O_BINARY | O_NOINHERIT)) return;
 #else
         if (
             pipe(_fds) == 0 &&
@@ -62,8 +68,13 @@ public:
     virtual ~Pipe()
     {
         // close the two filedescriptors
+#if _MSC_VER
+        _close(_fds[0]);
+        _close(_fds[1]);
+#else
         close(_fds[0]);
         close(_fds[1]);
+#endif
     }
     
     /**
@@ -82,7 +93,11 @@ public:
         char byte = 0;
         
         // send one byte over the pipe - this will wake up the other thread
+#if _MSC_VER
+        _write(_fds[1], &byte, 1);
+#else
         write(_fds[1], &byte, 1);
+#endif
     }
 };
 

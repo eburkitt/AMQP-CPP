@@ -56,7 +56,11 @@ private:
      *  Non-blocking socket that is connected to RabbitMQ
      *  @var int
      */
-    int _socket = -1;
+#if _MSC_VER
+	SOCKET _socket = (SOCKET)-1;
+#else
+	int _socket = -1;
+#endif
     
     /**
      *  Possible error that occured
@@ -114,13 +118,18 @@ private:
             if (_socket >= 0) 
             {
                 // turn socket into a non-blocking socket and set the close-on-exec bit
-                fcntl(_socket, F_SETFL, O_NONBLOCK | O_CLOEXEC);
-                
+#if _MSC_VER
+				u_long nonblock = 1;
+				ioctlsocket(_socket, FIONBIO, &nonblock);
+#else
+				fcntl(_socket, F_SETFL, O_NONBLOCK | O_CLOEXEC);
+#endif
+
                 // we want to enable "nodelay" on sockets (otherwise all send operations are s-l-o-w
                 int optval = 1;
                 
                 // set the option
-                setsockopt(_socket, IPPROTO_TCP, TCP_NODELAY, &optval, sizeof(int));
+                setsockopt(_socket, IPPROTO_TCP, TCP_NODELAY, (const char *)&optval, sizeof(int));
 
 #ifdef AMQP_CPP_USE_SO_NOSIGPIPE
                 set_sockopt_nosigpipe(_socket);

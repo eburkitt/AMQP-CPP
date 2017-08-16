@@ -24,10 +24,15 @@
 #include <sys/types.h>
 
 #ifndef AMQP_CPP_BUILD_PURE
-  #include <sys/socket.h>
-  #include <netdb.h>
-  #include <unistd.h>
-  #include <netinet/tcp.h>
+  #ifndef _MSC_VER
+    #include <sys/socket.h>
+    #include <netdb.h>
+    #include <unistd.h>
+    #include <netinet/tcp.h>
+  #else
+    #include <winsock2.h>
+    #include <Ws2tcpip.h>
+  #endif
 #endif
 #include <functional>
 #include <stdexcept>

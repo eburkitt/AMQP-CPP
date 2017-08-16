@@ -85,18 +85,21 @@ public:
      */
     ssize_t receivefrom(int socket, uint32_t expected)
     {
-        // find out how many bytes are available
-        uint32_t available = 0;
-        
         // check the number of bytes that are available
-        if (ioctl(socket, FIONREAD, &available) != 0) return -1;
+#if _MSC_VER
+		u_long available = 0;
+		if (ioctlsocket(socket, FIONREAD, &available) != 0) return -1;
+#else
+		uint32_t available = 0;
+		if (ioctl(socket, FIONREAD, &available) != 0) return -1;
+#endif
         
         // if no bytes are available, it could mean that the connection was closed
         // by the remote client, so we do have to call read() anyway, assume a default buffer
         if (available == 0) available = 1;
         
         // number of bytes to read
-        size_t bytes = std::min((uint32_t)(expected - _size), available);
+        size_t bytes = std::min(static_cast<decltype(available)>(expected - _size), available);
         
         // read data into the buffer
         auto result = read(socket, (void *)(_data + _size), bytes);

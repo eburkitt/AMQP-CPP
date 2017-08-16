@@ -85,7 +85,6 @@ table.cpp
 tcpclosed.h
 tcpdefines.h
 tcpconnected.h
-tcpconnection.cpp
 tcpinbuffer.h
 tcpoutbuffer.h
 tcpresolver.h
