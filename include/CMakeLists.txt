@@ -44,8 +44,11 @@ receivedframe.h
 stack_ptr.h
 stringfield.h
 table.h
-tcpchannel.h
-tcpconnection.h
-tcphandler.h
 watchable.h
 )
+
+if (NOT BUILD_PURE)
+  add_sources(tcpchannel.h)
+  add_sources(tcpconnection.h)
+  add_sources(tcphandler.h)
+endif()

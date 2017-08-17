@@ -82,8 +82,10 @@
 #include "../include/connectionhandler.h"
 #include "../include/connectionimpl.h"
 #include "../include/connection.h"
-#include "../include/tcphandler.h"
-#include "../include/tcpconnection.h"
+#ifndef AMQP_CPP_BUILD_PURE
+  #include "../include/tcphandler.h"
+  #include "../include/tcpconnection.h"
+#endif
 
 // classes that are very commonly used
 #include "../include/exception.h"

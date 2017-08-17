@@ -82,13 +82,6 @@ receivedframe.cpp
 reducedbuffer.h
 returnedmessage.h
 table.cpp
-tcpclosed.h
-tcpdefines.h
-tcpconnected.h
-tcpinbuffer.h
-tcpoutbuffer.h
-tcpresolver.h
-tcpstate.h
 transactioncommitframe.h
 transactioncommitokframe.h
 transactionframe.h
@@ -100,6 +93,13 @@ watchable.cpp
 )
 
 if (NOT BUILD_PURE)
+  add_sources(tcpclosed.h)
+  add_sources(tcpdefines.h)
+  add_sources(tcpconnected.h)
+  add_sources(tcpinbuffer.h)
+  add_sources(tcpoutbuffer.h)
+  add_sources(tcpresolver.h)
+  add_sources(tcpstate.h)
   add_sources(tcpconnection.cpp)
 endif()
 
